@@ -97,7 +97,8 @@
           "refreshAfterChange": false,
           "metadataUrlParams": {
             "sap-value-list": "none"
-          }
+          },
+          "useBatch": false
         }
       },
       "@i18n": {
@@ -120,7 +121,18 @@
     "containerLayout": "resizable",
     "enableLiveFilter": true,
     "considerAnalyticalParameters": false,
-    "cards": {}
+    "cards": {
+      "CardForMarketGrossAmountChart": {
+        "template": "sap.ovp.cards.charts.analytical",
+        "model": "mainModel",
+        "settings": {
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#MarketGrossAmountChart",
+          "entitySet": "Cards",
+          "title": "Market Gross Amount Chart"
+        }
+      }
+    },
+    "chartSettings": {}
   },
   "sap.fiori": {
     "registrationIds": [],
