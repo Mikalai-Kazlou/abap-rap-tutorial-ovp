@@ -1,12 +1,12 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Tue Oct 21 2025 16:20:27 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Sun Oct 26 2025 15:53:19 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>SAP Fiori Application Generator|
-|**App Generator Version**<br>1.19.1|
+|**App Generator Version**<br>1.19.3|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>Overview Page V2|
-|**Service Type**<br>SAP System (ABAP Environment on SAP Business Technology Platform)|
+|**Service Type**<br>SAP System (ABAP Cloud)|
 |**Service URL**<br>https://7ab63f61-d9c7-4bcf-9057-beead39881c1.abap.us10.hana.ondemand.com/sap/opu/odata/sap/ZRP_UI_OVP_O2|
 |**Module Name**<br>products-ovp|
 |**Application Title**<br>Overview Page|
@@ -20,7 +20,7 @@
 
 ## products-ovp
 
-SAP Fiori Application. Overview Page
+SAP Fiori application. Overview Page
 
 ### Starting the generated app
 

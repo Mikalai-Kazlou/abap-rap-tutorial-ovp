@@ -1,13 +1,13 @@
 {
   "generationParameters": {
-    "generationDate": "Tue Oct 21 2025 16:20:27 GMT+0000 (Coordinated Universal Time)",
+    "generationDate": "Sun Oct 26 2025 15:53:19 GMT+0000 (Coordinated Universal Time)",
     "generatorPlatform": "SAP Business Application Studio",
-    "serviceType": "SAP System (ABAP Environment on SAP Business Technology Platform)",
+    "serviceType": "SAP System (ABAP Cloud)",
     "metadataFilename": "",
     "serviceUrl": "https://7ab63f61-d9c7-4bcf-9057-beead39881c1.abap.us10.hana.ondemand.com/sap/opu/odata/sap/ZRP_UI_OVP_O2",
     "appName": "products-ovp",
     "appTitle": "Overview Page",
-    "appDescription": "SAP Fiori Application. Overview Page",
+    "appDescription": "SAP Fiori application. Overview Page",
     "appNamespace": "",
     "ui5Theme": "sap_horizon",
     "ui5Version": "1.136.8",
@@ -15,7 +15,7 @@
     "enableEslint": false,
     "enableTypeScript": false,
     "showMockDataInfo": true,
-    "generatorVersion": "1.19.1",
+    "generatorVersion": "1.19.3",
     "template": "Overview Page V2",
     "generatorName": "SAP Fiori Application Generator",
     "entityRelatedConfig": [

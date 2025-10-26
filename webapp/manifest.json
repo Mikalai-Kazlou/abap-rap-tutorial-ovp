@@ -12,8 +12,8 @@
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:ovp",
-      "version": "1.19.1",
-      "toolsId": "6c86f518-01b2-4c1b-b4cf-094760fc53dd"
+      "version": "1.19.3",
+      "toolsId": "4e9190b8-da20-4def-8e89-66095f3b719a"
     },
     "dataSources": {
       "ZRP_UI_OVP_O2_VAN": {
@@ -40,6 +40,20 @@
           ],
           "localUri": "localService/mainService/metadata.xml",
           "odataVersion": "2.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "products-display_ovp": {
+          "semanticObject": "products",
+          "action": "display_ovp",
+          "title": "{{products-display_ovp.flpTitle}}",
+          "subTitle": "{{products-display_ovp.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }
@@ -97,8 +111,7 @@
           "refreshAfterChange": false,
           "metadataUrlParams": {
             "sap-value-list": "none"
-          },
-          "useBatch": false
+          }
         }
       },
       "@i18n": {
@@ -121,18 +134,7 @@
     "containerLayout": "resizable",
     "enableLiveFilter": true,
     "considerAnalyticalParameters": false,
-    "cards": {
-      "CardForMarketGrossAmountChart": {
-        "template": "sap.ovp.cards.charts.analytical",
-        "model": "mainModel",
-        "settings": {
-          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#MarketGrossAmountChart",
-          "entitySet": "Cards",
-          "title": "Market Gross Amount Chart"
-        }
-      }
-    },
-    "chartSettings": {}
+    "cards": {}
   },
   "sap.fiori": {
     "registrationIds": [],

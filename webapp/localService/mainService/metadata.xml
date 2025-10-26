@@ -80,72 +80,150 @@
                 <Property Name="ProductUUID" Type="Edm.Guid" sap:aggregation-role="dimension" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
                 <Property Name="ProductMarketUUID" Type="Edm.Guid" sap:aggregation-role="dimension" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
                 <Property Name="OrderUUID" Type="Edm.Guid" sap:aggregation-role="dimension" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
-                <Property Name="ProductGroupID" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Product Group ID"/>
-                <Property Name="ProductID" Type="Edm.String" MaxLength="15" sap:aggregation-role="dimension" sap:label="Product ID"/>
-                <Property Name="MarketID" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:label="Market ID"/>
-                <Property Name="DeliveryDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:label="Delivery Date"/>
-                <Property Name="PhaseID" Type="Edm.Byte" sap:aggregation-role="dimension" sap:label="Phase ID"/>
                 <Property Name="OrderID" Type="Edm.String" MaxLength="6" sap:aggregation-role="dimension" sap:label="Order ID"/>
-                <Property Name="BusinessPartner" Type="Edm.String" MaxLength="80" sap:aggregation-role="dimension" sap:label="Partner" sap:quickinfo="Business Partner"/>
-                <Property Name="Quantity" Type="Edm.Int32" sap:aggregation-role="measure" sap:label="Quantity" sap:filterable="false"/>
-                <Property Name="NetAmount" Type="Edm.Decimal" Precision="15" Scale="3" sap:aggregation-role="measure" sap:unit="Currency" sap:variable-scale="true" sap:label="Net Amount" sap:filterable="false"/>
-                <Property Name="GrossAmount" Type="Edm.Decimal" Precision="15" Scale="3" sap:aggregation-role="measure" sap:unit="Currency" sap:variable-scale="true" sap:label="Gross Amount" sap:filterable="false"/>
-                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+                <Property Name="ProductName" Type="Edm.String" MaxLength="80" sap:aggregation-role="dimension" sap:label="Product Name"/>
+                <Property Name="MarketName" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:label="Market Name"/>
+                <Property Name="CountByCountry" Type="Edm.Int32" sap:aggregation-role="measure" sap:label="Quantity by Countrys" sap:filterable="false"/>
+                <Property Name="CountByProductGroup" Type="Edm.Int32" sap:aggregation-role="measure" sap:label="Quantity by Product Groups" sap:filterable="false"/>
+                <Property Name="PhaseName" Type="Edm.String" MaxLength="60" sap:aggregation-role="dimension" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
+                <Property Name="CalendarYear" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="NonNegative" sap:label="Calendar Year"/>
+                <Property Name="DeliveryDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:label="Delivery Date"/>
+                <Property Name="Quantity" Type="Edm.Int32" sap:aggregation-role="dimension" sap:label="Quantity"/>
+                <Property Name="NetAmount" Type="Edm.Decimal" Precision="15" Scale="3" sap:aggregation-role="dimension" sap:unit="AmountCurrency" sap:variable-scale="true" sap:label="Net Amount"/>
+                <Property Name="GrossAmount" Type="Edm.Decimal" Precision="15" Scale="3" sap:aggregation-role="dimension" sap:unit="AmountCurrency" sap:variable-scale="true" sap:label="Gross Amount"/>
+                <Property Name="GrossIncom" Type="Edm.Decimal" Precision="16" Scale="3" sap:aggregation-role="dimension" sap:unit="AmountCurrency" sap:variable-scale="true" sap:label="Gross Incom"/>
+                <Property Name="AmountCurrency" Type="Edm.String" MaxLength="5" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+                <Property Name="GrossIncomPercentage" Type="Edm.Decimal" Precision="5" Scale="2" sap:aggregation-role="measure" sap:unit="Percentage" sap:label="Average Gross Income Percentage" sap:filterable="false"/>
+                <Property Name="Percentage" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:semantics="unit-of-measure"/>
+                <Property Name="TargetGrossIncomPercentage" Type="Edm.Decimal" Precision="5" Scale="2" sap:aggregation-role="dimension" sap:unit="Percentage"/>
+                <Property Name="GrossIncomPercentageList" Type="Edm.Decimal" Precision="5" Scale="2" sap:aggregation-role="dimension" sap:unit="Percentage"/>
+                <Property Name="GrIncPercKPI" Type="Edm.Decimal" Precision="5" Scale="2" sap:aggregation-role="measure" sap:unit="Percentage" sap:filterable="false"/>
+                <Property Name="TargetGrIncPercKPI" Type="Edm.Decimal" Precision="5" Scale="2" sap:aggregation-role="dimension" sap:unit="Percentage"/>
+                <Property Name="WebAddress" Type="Edm.String" MaxLength="21" sap:aggregation-role="dimension"/>
+                <Property Name="WebAddress2" Type="Edm.String" MaxLength="24" sap:aggregation-role="dimension"/>
+                <Property Name="IconUrl" Type="Edm.String" MaxLength="23" sap:aggregation-role="dimension"/>
             </EntityType>
             <EntityType Name="GlobalFiltersType" sap:label="OVP: Global Filters" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="ProductGroupID"/>
-                    <PropertyRef Name="ProductID"/>
-                    <PropertyRef Name="MarketID"/>
-                    <PropertyRef Name="DeliveryDate"/>
-                    <PropertyRef Name="PhaseID"/>
+                    <PropertyRef Name="ProductUUID"/>
+                    <PropertyRef Name="ProductMarketUUID"/>
+                    <PropertyRef Name="OrderUUID"/>
                 </Key>
-                <Property Name="ProductGroupID" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="Product Group ID" sap:value-list="standard"/>
-                <Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="Product ID" sap:value-list="standard"/>
-                <Property Name="MarketID" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Market ID" sap:value-list="standard"/>
-                <Property Name="DeliveryDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:filter-restriction="interval" sap:label="Delivery Date"/>
-                <Property Name="PhaseID" Type="Edm.Byte" Nullable="false" sap:label="Phase ID" sap:value-list="fixed-values"/>
+                <Property Name="ProductUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="ProductMarketUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="OrderUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="ProductName" Type="Edm.String" MaxLength="80" sap:label="Product Name" sap:value-list="standard"/>
+                <Property Name="MarketName" Type="Edm.String" MaxLength="40" sap:label="Market Name" sap:value-list="standard"/>
+                <Property Name="DeliveryDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:filter-restriction="interval" sap:label="Delivery Date"/>
+                <Property Name="GrossIncom" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="AmountCurrency" sap:variable-scale="true"/>
+                <Property Name="AmountCurrency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+                <Property Name="PhaseName" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:value-list="fixed-values"/>
+            </EntityType>
+            <EntityType Name="vhMarketType" sap:label="Markets" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketID"/>
+                </Key>
+                <Property Name="MarketID" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="MarketName" sap:label="Market ID"/>
+                <Property Name="MarketName" Type="Edm.String" MaxLength="40" sap:label="Market Name"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:label="Language Code"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+                <Property Name="ImageUrl" Type="Edm.String" MaxLength="200" sap:label="URL"/>
+            </EntityType>
+            <EntityType Name="MarketsType" sap:label="Markets" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketID"/>
+                </Key>
+                <Property Name="MarketID" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="MarketName" sap:label="Market ID"/>
+                <Property Name="MarketName" Type="Edm.String" MaxLength="40" sap:label="Market Name"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:label="Language Code"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+                <Property Name="ImageUrl" Type="Edm.String" MaxLength="200" sap:label="URL"/>
             </EntityType>
             <EntityType Name="MarketOrdersType" sap:label="Market Orders" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="ProductUUID"/>
                     <PropertyRef Name="ProductMarketUUID"/>
                     <PropertyRef Name="OrderUUID"/>
-                    <PropertyRef Name="IsActiveEntity"/>
                 </Key>
-                <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="zzValidateBPID_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ProductUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="ProductMarketUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="OrderUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="ProductMarketUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="OrderUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
                 <Property Name="OrderID" Type="Edm.String" MaxLength="6" sap:label="Order ID"/>
-                <Property Name="Quantity" Type="Edm.Int32" sap:label="Quantity"/>
+                <Property Name="ProductGroupName" Type="Edm.String" MaxLength="30" sap:label="Product Group Name"/>
+                <Property Name="ProductName" Type="Edm.String" MaxLength="80" sap:label="Product Name"/>
+                <Property Name="MarketName" Type="Edm.String" MaxLength="40" sap:label="Market Name"/>
+                <Property Name="PhaseName" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
                 <Property Name="CalendarYear" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Calendar Year"/>
                 <Property Name="DeliveryDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Delivery Date"/>
+                <Property Name="Quantity" Type="Edm.Int32" sap:label="Quantity"/>
                 <Property Name="NetAmount" Type="Edm.Decimal" Precision="15" Scale="3" sap:unit="AmountCurrency" sap:variable-scale="true" sap:label="Net Amount"/>
                 <Property Name="GrossAmount" Type="Edm.Decimal" Precision="15" Scale="3" sap:unit="AmountCurrency" sap:variable-scale="true" sap:label="Gross Amount"/>
                 <Property Name="AmountCurrency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
-                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="CreatedOn" Type="Edm.Decimal" Precision="15" Scale="0" sap:label="Creared On" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="ChangedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed By" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="ChangedOn" Type="Edm.Decimal" Precision="15" Scale="0" sap:label="Changed On" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="LocalChangedOn" Type="Edm.Decimal" Precision="15" Scale="0" sap:label="Changed On"/>
-                <Property Name="zzBusinessPartnerID" Type="Edm.String" MaxLength="10" sap:label="Partner ID" sap:quickinfo="Business Partner ID"/>
-                <Property Name="zzBusinessPartner" Type="Edm.String" MaxLength="80" sap:label="Partner" sap:quickinfo="Business Partner" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="zzBusinessPartnerEmail" Type="Edm.String" MaxLength="255" sap:label="Partner Email" sap:quickinfo="Business Partner Email" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="zzBusinessPartnerPhone" Type="Edm.String" MaxLength="30" sap:label="Partner Phone" sap:quickinfo="Business Partner Phone" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:label="Has Draft" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:label="Has active" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:label="Is active" sap:creatable="false" sap:updatable="false"/>
-                <NavigationProperty Name="DraftAdministrativeData" Relationship="cds_zrp_ui_ovp.assoc_67E9167A9F8A1674AD2D8A584EDA75C7" FromRole="FromRole_assoc_67E9167A9F8A1674AD2D8A584EDA75C7" ToRole="ToRole_assoc_67E9167A9F8A1674AD2D8A584EDA75C7"/>
-                <NavigationProperty Name="SiblingEntity" Relationship="cds_zrp_ui_ovp.assoc_20B92FE82F52F0DC499535C64985F792" FromRole="FromRole_assoc_20B92FE82F52F0DC499535C64985F792" ToRole="ToRole_assoc_20B92FE82F52F0DC499535C64985F792"/>
+                <Property Name="CountByCountry" Type="Edm.Int32"/>
+                <Property Name="CountByProductGroup" Type="Edm.Int32"/>
+                <Property Name="GrossIncom" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="AmountCurrency" sap:variable-scale="true" sap:label="Gross Incom"/>
+                <Property Name="GrossIncomPercentage" Type="Edm.Decimal" Precision="5" Scale="2" sap:unit="Percentage"/>
+                <Property Name="GrossIncomPercentageList" Type="Edm.Decimal" Precision="5" Scale="2" sap:unit="Percentage"/>
+                <Property Name="GrIncPercKPI" Type="Edm.Decimal" Precision="5" Scale="2" sap:unit="Percentage"/>
+                <Property Name="Percentage" Type="Edm.String" MaxLength="3" sap:semantics="unit-of-measure"/>
+                <Property Name="TargetGrossIncomPercentage" Type="Edm.Decimal" Precision="5" Scale="2" sap:unit="Percentage"/>
+                <Property Name="TargetGrIncPercKPI" Type="Edm.Decimal" Precision="5" Scale="2" sap:unit="Percentage"/>
                 <NavigationProperty Name="to_Product" Relationship="cds_zrp_ui_ovp.assoc_08312445751F8550158A23A04EA289E9" FromRole="FromRole_assoc_08312445751F8550158A23A04EA289E9" ToRole="ToRole_assoc_08312445751F8550158A23A04EA289E9"/>
-                <NavigationProperty Name="to_ProductMarket" Relationship="cds_zrp_ui_ovp.assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E" FromRole="ToRole_assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E" ToRole="FromRole_assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E"/>
+                <NavigationProperty Name="to_ProductMarket" Relationship="cds_zrp_ui_ovp.assoc_540DBD5775CC88B7E279035408653654" FromRole="FromRole_assoc_540DBD5775CC88B7E279035408653654" ToRole="ToRole_assoc_540DBD5775CC88B7E279035408653654"/>
             </EntityType>
             <EntityType Name="PhasesType" sap:label="Phases" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PhaseID"/>
+                </Key>
+                <Property Name="PhaseID" Type="Edm.Byte" Nullable="false" sap:text="PhaseText" sap:label="Phase" sap:quickinfo="Phase ID"/>
+                <Property Name="Phase" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Phase"/>
+                <Property Name="PhaseText" Type="Edm.String" MaxLength="60" sap:label="Product Life Cycle Phase" sap:quickinfo="Short Text for Fixed Values"/>
+            </EntityType>
+            <EntityType Name="ProductsType" sap:label="Products" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="UUID"/>
+                </Key>
+                <Property Name="UUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="ID" Type="Edm.String" MaxLength="15" sap:label="Product ID"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="80" sap:label="Product Name"/>
+                <Property Name="ProductGroupID" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:text="ProductGroupName" sap:label="Product Group ID"/>
+                <Property Name="ProductGroupName" Type="Edm.String" MaxLength="30" sap:label="Product Group Name"/>
+                <Property Name="PhaseID" Type="Edm.Byte" sap:text="PhaseName" sap:label="Phase ID"/>
+                <Property Name="PhaseName" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
+                <Property Name="Height" Type="Edm.Decimal" Precision="11" Scale="3" sap:unit="SizeUOM" sap:label="Height" sap:quickinfo="Depth"/>
+                <Property Name="Depth" Type="Edm.Decimal" Precision="11" Scale="3" sap:unit="SizeUOM" sap:label="Depth"/>
+                <Property Name="Width" Type="Edm.Decimal" Precision="11" Scale="3" sap:unit="SizeUOM" sap:label="Width"/>
+                <Property Name="SizeUOM" Type="Edm.String" MaxLength="3" sap:label="Internal UoM" sap:quickinfo="Unit of Measurement" sap:semantics="unit-of-measure"/>
+                <Property Name="Price" Type="Edm.Decimal" Precision="15" Scale="3" sap:unit="PriceCurrency" sap:variable-scale="true" sap:label="Price"/>
+                <Property Name="PriceCurrency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+                <Property Name="TaxRate" Type="Edm.Decimal" Precision="5" Scale="2" sap:label="Tax Rate"/>
+                <NavigationProperty Name="to_Phase" Relationship="cds_zrp_ui_ovp.assoc_F0B376E80D94C58CF014071D50AA7369" FromRole="FromRole_assoc_F0B376E80D94C58CF014071D50AA7369" ToRole="ToRole_assoc_F0B376E80D94C58CF014071D50AA7369"/>
+                <NavigationProperty Name="to_ProductGroup" Relationship="cds_zrp_ui_ovp.assoc_C66A986379F4E7684CC9690A044505F9" FromRole="FromRole_assoc_C66A986379F4E7684CC9690A044505F9" ToRole="ToRole_assoc_C66A986379F4E7684CC9690A044505F9"/>
+            </EntityType>
+            <EntityType Name="ProductGroupsType" sap:label="Product Groups" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductGroupID"/>
+                </Key>
+                <Property Name="ProductGroupID" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:text="ProductGroupName" sap:label="Product Group ID"/>
+                <Property Name="ProductGroupName" Type="Edm.String" MaxLength="30" sap:label="Product Group Name"/>
+                <Property Name="ImageUrl" Type="Edm.String" MaxLength="200" sap:label="URL"/>
+            </EntityType>
+            <EntityType Name="ProductMarketsType" sap:label="Product Markets" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductUUID"/>
+                    <PropertyRef Name="ProductMarketUUID"/>
+                </Key>
+                <Property Name="ProductUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="ProductMarketUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="MarketID" Type="Edm.String" MaxLength="3" sap:text="MarketName" sap:label="Market ID"/>
+                <Property Name="MarketName" Type="Edm.String" MaxLength="40" sap:label="Market Name"/>
+                <Property Name="ISOCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="ISO-Code" sap:quickinfo="Country ISO-Code"/>
+                <Property Name="Status" Type="Edm.Boolean" sap:label="Market Status"/>
+                <Property Name="StartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Start Date"/>
+                <Property Name="EndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="End Date"/>
+                <NavigationProperty Name="to_Market" Relationship="cds_zrp_ui_ovp.assoc_B6EB2FF08AB1D2B66960B78ED374DD5C" FromRole="FromRole_assoc_B6EB2FF08AB1D2B66960B78ED374DD5C" ToRole="ToRole_assoc_B6EB2FF08AB1D2B66960B78ED374DD5C"/>
+            </EntityType>
+            <EntityType Name="vhPhaseType" sap:label="Phases" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="PhaseID"/>
                 </Key>
@@ -153,7 +231,7 @@
                 <Property Name="Phase" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Phase"/>
                 <Property Name="PhaseText" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
             </EntityType>
-            <EntityType Name="ProductsType" sap:label="Products" sap:content-version="1">
+            <EntityType Name="vhProductType" sap:label="Products" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="UUID"/>
                     <PropertyRef Name="IsActiveEntity"/>
@@ -173,7 +251,6 @@
                 <Property Name="Width_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="to_ProductMarket_oc" Type="Edm.Boolean" sap:label="Dynamic CbA-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="zzGetPGNameTranslation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="UUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="ID" Type="Edm.String" MaxLength="15" sap:field-control="ID_fc" sap:label="Product ID"/>
@@ -201,52 +278,18 @@
                 <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:label="Has active" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:label="Is active" sap:creatable="false" sap:updatable="false"/>
-                <NavigationProperty Name="DraftAdministrativeData" Relationship="cds_zrp_ui_ovp.assoc_C74510BD0AAFCE4DAF9CF3C4F4FC6DB1" FromRole="FromRole_assoc_C74510BD0AAFCE4DAF9CF3C4F4FC6DB1" ToRole="ToRole_assoc_C74510BD0AAFCE4DAF9CF3C4F4FC6DB1"/>
-                <NavigationProperty Name="SiblingEntity" Relationship="cds_zrp_ui_ovp.assoc_8111215B36754033FE259ACCA402059E" FromRole="FromRole_assoc_8111215B36754033FE259ACCA402059E" ToRole="ToRole_assoc_8111215B36754033FE259ACCA402059E"/>
-                <NavigationProperty Name="to_Phase" Relationship="cds_zrp_ui_ovp.assoc_F0B376E80D94C58CF014071D50AA7369" FromRole="FromRole_assoc_F0B376E80D94C58CF014071D50AA7369" ToRole="ToRole_assoc_F0B376E80D94C58CF014071D50AA7369"/>
-                <NavigationProperty Name="to_ProductGroup" Relationship="cds_zrp_ui_ovp.assoc_C66A986379F4E7684CC9690A044505F9" FromRole="FromRole_assoc_C66A986379F4E7684CC9690A044505F9" ToRole="ToRole_assoc_C66A986379F4E7684CC9690A044505F9"/>
-                <NavigationProperty Name="to_ProductMarket" Relationship="cds_zrp_ui_ovp.assoc_163E4B53D5F794E9B9757CA78EED6FE1" FromRole="FromRole_assoc_163E4B53D5F794E9B9757CA78EED6FE1" ToRole="ToRole_assoc_163E4B53D5F794E9B9757CA78EED6FE1"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="cds_zrp_ui_ovp.assoc_8223AD473F372998E695685152B49133" FromRole="FromRole_assoc_8223AD473F372998E695685152B49133" ToRole="ToRole_assoc_8223AD473F372998E695685152B49133"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="cds_zrp_ui_ovp.assoc_5B8052F142B7E6599A9F4302FB8A19DD" FromRole="FromRole_assoc_5B8052F142B7E6599A9F4302FB8A19DD" ToRole="ToRole_assoc_5B8052F142B7E6599A9F4302FB8A19DD"/>
+                <NavigationProperty Name="to_Phase" Relationship="cds_zrp_ui_ovp.assoc_71EC52740CDB42486EA5D05493541BB0" FromRole="FromRole_assoc_71EC52740CDB42486EA5D05493541BB0" ToRole="ToRole_assoc_71EC52740CDB42486EA5D05493541BB0"/>
+                <NavigationProperty Name="to_ProductGroup" Relationship="cds_zrp_ui_ovp.assoc_38FCC5BF5D23FF033CAA11F9232CC3FF" FromRole="FromRole_assoc_38FCC5BF5D23FF033CAA11F9232CC3FF" ToRole="ToRole_assoc_38FCC5BF5D23FF033CAA11F9232CC3FF"/>
             </EntityType>
-            <EntityType Name="ProductGroupsType" sap:label="Product Groups" sap:content-version="1">
+            <EntityType Name="vhProductGroupType" sap:label="Product Groups" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="ProductGroupID"/>
                 </Key>
                 <Property Name="ProductGroupID" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:text="ProductGroupName" sap:label="Product Group ID"/>
                 <Property Name="ProductGroupName" Type="Edm.String" MaxLength="30" sap:label="Product Group Name"/>
                 <Property Name="ImageUrl" Type="Edm.String" MaxLength="200" sap:label="URL"/>
-            </EntityType>
-            <EntityType Name="ProductMarketsType" sap:label="Product Markets" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="ProductUUID"/>
-                    <PropertyRef Name="ProductMarketUUID"/>
-                    <PropertyRef Name="IsActiveEntity"/>
-                </Key>
-                <Property Name="AcceptMarket_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="RejectMarket_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="to_MarketOrder_oc" Type="Edm.Boolean" sap:label="Dynamic CbA-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ProductUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="ProductMarketUUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="MarketID" Type="Edm.String" MaxLength="3" sap:label="Market ID"/>
-                <Property Name="ISOCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="ISO-Code" sap:quickinfo="Country ISO-Code" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Status" Type="Edm.Boolean" sap:label="Market Status"/>
-                <Property Name="StartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Start Date"/>
-                <Property Name="EndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="End Date"/>
-                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="CreatedOn" Type="Edm.Decimal" Precision="15" Scale="0" sap:label="Creared On" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="ChangedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed By" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="ChangedOn" Type="Edm.Decimal" Precision="15" Scale="0" sap:label="Changed On" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="LocalChangedOn" Type="Edm.Decimal" Precision="15" Scale="0" sap:label="Changed On"/>
-                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:label="Has Draft" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:label="Has active" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:label="Is active" sap:creatable="false" sap:updatable="false"/>
-                <NavigationProperty Name="to_Product" Relationship="cds_zrp_ui_ovp.assoc_163E4B53D5F794E9B9757CA78EED6FE1" FromRole="ToRole_assoc_163E4B53D5F794E9B9757CA78EED6FE1" ToRole="FromRole_assoc_163E4B53D5F794E9B9757CA78EED6FE1"/>
-                <NavigationProperty Name="DraftAdministrativeData" Relationship="cds_zrp_ui_ovp.assoc_C2C8F5BEF37F6849C2D90BC2C662F21C" FromRole="FromRole_assoc_C2C8F5BEF37F6849C2D90BC2C662F21C" ToRole="ToRole_assoc_C2C8F5BEF37F6849C2D90BC2C662F21C"/>
-                <NavigationProperty Name="SiblingEntity" Relationship="cds_zrp_ui_ovp.assoc_9A064E3A624DC4624F577000559CD282" FromRole="FromRole_assoc_9A064E3A624DC4624F577000559CD282" ToRole="ToRole_assoc_9A064E3A624DC4624F577000559CD282"/>
-                <NavigationProperty Name="to_MarketOrder" Relationship="cds_zrp_ui_ovp.assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E" FromRole="FromRole_assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E" ToRole="ToRole_assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E"/>
             </EntityType>
             <EntityType Name="SAP__Currency" sap:content-version="1">
                 <Key>
@@ -398,14 +441,6 @@
             <ComplexType Name="SAP__HeaderFooterField">
                 <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="256" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </ComplexType>
-            <Association Name="assoc_C74510BD0AAFCE4DAF9CF3C4F4FC6DB1" sap:content-version="1">
-                <End Type="cds_zrp_ui_ovp.ProductsType" Multiplicity="1" Role="FromRole_assoc_C74510BD0AAFCE4DAF9CF3C4F4FC6DB1"/>
-                <End Type="cds_zrp_ui_ovp.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_C74510BD0AAFCE4DAF9CF3C4F4FC6DB1"/>
-            </Association>
-            <Association Name="assoc_8111215B36754033FE259ACCA402059E" sap:content-version="1">
-                <End Type="cds_zrp_ui_ovp.ProductsType" Multiplicity="1" Role="FromRole_assoc_8111215B36754033FE259ACCA402059E"/>
-                <End Type="cds_zrp_ui_ovp.ProductsType" Multiplicity="0..1" Role="ToRole_assoc_8111215B36754033FE259ACCA402059E"/>
-            </Association>
             <Association Name="assoc_F0B376E80D94C58CF014071D50AA7369" sap:content-version="1">
                 <End Type="cds_zrp_ui_ovp.ProductsType" Multiplicity="1" Role="FromRole_assoc_F0B376E80D94C58CF014071D50AA7369"/>
                 <End Type="cds_zrp_ui_ovp.PhasesType" Multiplicity="0..1" Role="ToRole_assoc_F0B376E80D94C58CF014071D50AA7369"/>
@@ -414,51 +449,17 @@
                 <End Type="cds_zrp_ui_ovp.ProductsType" Multiplicity="1" Role="FromRole_assoc_C66A986379F4E7684CC9690A044505F9"/>
                 <End Type="cds_zrp_ui_ovp.ProductGroupsType" Multiplicity="0..1" Role="ToRole_assoc_C66A986379F4E7684CC9690A044505F9"/>
             </Association>
-            <Association Name="assoc_163E4B53D5F794E9B9757CA78EED6FE1" sap:content-version="1">
-                <End Type="cds_zrp_ui_ovp.ProductsType" Multiplicity="1" Role="FromRole_assoc_163E4B53D5F794E9B9757CA78EED6FE1">
-                    <OnDelete Action="Cascade"/>
-                </End>
-                <End Type="cds_zrp_ui_ovp.ProductMarketsType" Multiplicity="*" Role="ToRole_assoc_163E4B53D5F794E9B9757CA78EED6FE1"/>
-                <ReferentialConstraint>
-                    <Principal Role="FromRole_assoc_163E4B53D5F794E9B9757CA78EED6FE1">
-                        <PropertyRef Name="UUID"/>
-                    </Principal>
-                    <Dependent Role="ToRole_assoc_163E4B53D5F794E9B9757CA78EED6FE1">
-                        <PropertyRef Name="ProductUUID"/>
-                    </Dependent>
-                </ReferentialConstraint>
+            <Association Name="assoc_B6EB2FF08AB1D2B66960B78ED374DD5C" sap:content-version="1">
+                <End Type="cds_zrp_ui_ovp.ProductMarketsType" Multiplicity="1" Role="FromRole_assoc_B6EB2FF08AB1D2B66960B78ED374DD5C"/>
+                <End Type="cds_zrp_ui_ovp.MarketsType" Multiplicity="0..1" Role="ToRole_assoc_B6EB2FF08AB1D2B66960B78ED374DD5C"/>
             </Association>
-            <Association Name="assoc_C2C8F5BEF37F6849C2D90BC2C662F21C" sap:content-version="1">
-                <End Type="cds_zrp_ui_ovp.ProductMarketsType" Multiplicity="1" Role="FromRole_assoc_C2C8F5BEF37F6849C2D90BC2C662F21C"/>
-                <End Type="cds_zrp_ui_ovp.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_C2C8F5BEF37F6849C2D90BC2C662F21C"/>
-            </Association>
-            <Association Name="assoc_9A064E3A624DC4624F577000559CD282" sap:content-version="1">
-                <End Type="cds_zrp_ui_ovp.ProductMarketsType" Multiplicity="1" Role="FromRole_assoc_9A064E3A624DC4624F577000559CD282"/>
-                <End Type="cds_zrp_ui_ovp.ProductMarketsType" Multiplicity="0..1" Role="ToRole_assoc_9A064E3A624DC4624F577000559CD282"/>
-            </Association>
-            <Association Name="assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E" sap:content-version="1">
-                <End Type="cds_zrp_ui_ovp.ProductMarketsType" Multiplicity="1" Role="FromRole_assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E">
-                    <OnDelete Action="Cascade"/>
-                </End>
-                <End Type="cds_zrp_ui_ovp.MarketOrdersType" Multiplicity="*" Role="ToRole_assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E"/>
-                <ReferentialConstraint>
-                    <Principal Role="FromRole_assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E">
-                        <PropertyRef Name="ProductMarketUUID"/>
-                        <PropertyRef Name="ProductUUID"/>
-                    </Principal>
-                    <Dependent Role="ToRole_assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E">
-                        <PropertyRef Name="ProductMarketUUID"/>
-                        <PropertyRef Name="ProductUUID"/>
-                    </Dependent>
-                </ReferentialConstraint>
-            </Association>
-            <Association Name="assoc_20B92FE82F52F0DC499535C64985F792" sap:content-version="1">
-                <End Type="cds_zrp_ui_ovp.MarketOrdersType" Multiplicity="1" Role="FromRole_assoc_20B92FE82F52F0DC499535C64985F792"/>
-                <End Type="cds_zrp_ui_ovp.MarketOrdersType" Multiplicity="0..1" Role="ToRole_assoc_20B92FE82F52F0DC499535C64985F792"/>
+            <Association Name="assoc_540DBD5775CC88B7E279035408653654" sap:content-version="1">
+                <End Type="cds_zrp_ui_ovp.MarketOrdersType" Multiplicity="1" Role="FromRole_assoc_540DBD5775CC88B7E279035408653654"/>
+                <End Type="cds_zrp_ui_ovp.ProductMarketsType" Multiplicity="1" Role="ToRole_assoc_540DBD5775CC88B7E279035408653654"/>
             </Association>
             <Association Name="assoc_08312445751F8550158A23A04EA289E9" sap:content-version="1">
                 <End Type="cds_zrp_ui_ovp.MarketOrdersType" Multiplicity="1" Role="FromRole_assoc_08312445751F8550158A23A04EA289E9"/>
-                <End Type="cds_zrp_ui_ovp.ProductsType" Multiplicity="0..1" Role="ToRole_assoc_08312445751F8550158A23A04EA289E9"/>
+                <End Type="cds_zrp_ui_ovp.ProductsType" Multiplicity="1" Role="ToRole_assoc_08312445751F8550158A23A04EA289E9"/>
                 <ReferentialConstraint>
                     <Principal Role="ToRole_assoc_08312445751F8550158A23A04EA289E9">
                         <PropertyRef Name="UUID"/>
@@ -468,9 +469,21 @@
                     </Dependent>
                 </ReferentialConstraint>
             </Association>
-            <Association Name="assoc_67E9167A9F8A1674AD2D8A584EDA75C7" sap:content-version="1">
-                <End Type="cds_zrp_ui_ovp.MarketOrdersType" Multiplicity="1" Role="FromRole_assoc_67E9167A9F8A1674AD2D8A584EDA75C7"/>
-                <End Type="cds_zrp_ui_ovp.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_67E9167A9F8A1674AD2D8A584EDA75C7"/>
+            <Association Name="assoc_8223AD473F372998E695685152B49133" sap:content-version="1">
+                <End Type="cds_zrp_ui_ovp.vhProductType" Multiplicity="1" Role="FromRole_assoc_8223AD473F372998E695685152B49133"/>
+                <End Type="cds_zrp_ui_ovp.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_8223AD473F372998E695685152B49133"/>
+            </Association>
+            <Association Name="assoc_5B8052F142B7E6599A9F4302FB8A19DD" sap:content-version="1">
+                <End Type="cds_zrp_ui_ovp.vhProductType" Multiplicity="1" Role="FromRole_assoc_5B8052F142B7E6599A9F4302FB8A19DD"/>
+                <End Type="cds_zrp_ui_ovp.vhProductType" Multiplicity="0..1" Role="ToRole_assoc_5B8052F142B7E6599A9F4302FB8A19DD"/>
+            </Association>
+            <Association Name="assoc_71EC52740CDB42486EA5D05493541BB0" sap:content-version="1">
+                <End Type="cds_zrp_ui_ovp.vhProductType" Multiplicity="1" Role="FromRole_assoc_71EC52740CDB42486EA5D05493541BB0"/>
+                <End Type="cds_zrp_ui_ovp.vhPhaseType" Multiplicity="0..1" Role="ToRole_assoc_71EC52740CDB42486EA5D05493541BB0"/>
+            </Association>
+            <Association Name="assoc_38FCC5BF5D23FF033CAA11F9232CC3FF" sap:content-version="1">
+                <End Type="cds_zrp_ui_ovp.vhProductType" Multiplicity="1" Role="FromRole_assoc_38FCC5BF5D23FF033CAA11F9232CC3FF"/>
+                <End Type="cds_zrp_ui_ovp.vhProductGroupType" Multiplicity="0..1" Role="ToRole_assoc_38FCC5BF5D23FF033CAA11F9232CC3FF"/>
             </Association>
             <Association Name="to_format" sap:content-version="1">
                 <End Type="cds_zrp_ui_ovp.SAP__DocumentDescription" Multiplicity="1" Role="FromRole_to_format"/>
@@ -585,11 +598,16 @@
                 <EntitySet Name="I_DraftAdministrativeUserVH" EntityType="cds_zrp_ui_ovp.I_DraftAdministrativeUserVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="Cards" EntityType="cds_zrp_ui_ovp.CardsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="GlobalFilters" EntityType="cds_zrp_ui_ovp.GlobalFiltersType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
-                <EntitySet Name="MarketOrders" EntityType="cds_zrp_ui_ovp.MarketOrdersType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
+                <EntitySet Name="vhMarket" EntityType="cds_zrp_ui_ovp.vhMarketType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="Markets" EntityType="cds_zrp_ui_ovp.MarketsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketOrders" EntityType="cds_zrp_ui_ovp.MarketOrdersType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="Phases" EntityType="cds_zrp_ui_ovp.PhasesType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
-                <EntitySet Name="Products" EntityType="cds_zrp_ui_ovp.ProductsType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
-                <EntitySet Name="ProductGroups" EntityType="cds_zrp_ui_ovp.ProductGroupsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
-                <EntitySet Name="ProductMarkets" EntityType="cds_zrp_ui_ovp.ProductMarketsType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
+                <EntitySet Name="Products" EntityType="cds_zrp_ui_ovp.ProductsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductGroups" EntityType="cds_zrp_ui_ovp.ProductGroupsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductMarkets" EntityType="cds_zrp_ui_ovp.ProductMarketsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="vhPhase" EntityType="cds_zrp_ui_ovp.vhPhaseType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="vhProduct" EntityType="cds_zrp_ui_ovp.vhProductType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
+                <EntitySet Name="vhProductGroup" EntityType="cds_zrp_ui_ovp.vhProductGroupType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="SAP__FormatSet" EntityType="cds_zrp_ui_ovp.SAP__Format" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__PDFStandardSet" EntityType="cds_zrp_ui_ovp.SAP__PDFStandard" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__TableColumnsSet" EntityType="cds_zrp_ui_ovp.SAP__TableColumns" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
@@ -603,49 +621,41 @@
                 <EntitySet Name="SAP__UnitsOfMeasure" EntityType="cds_zrp_ui_ovp.SAP__UnitOfMeasure" sap:content-version="1"/>
                 <EntitySet Name="SAP__MyDocumentDescriptions" EntityType="cds_zrp_ui_ovp.SAP__DocumentDescription" sap:content-version="1"/>
                 <EntitySet Name="SAP__FileShareSet" EntityType="cds_zrp_ui_ovp.SAP__FileShare" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
-                <AssociationSet Name="assoc_8111215B36754033FE259ACCA402059E" Association="cds_zrp_ui_ovp.assoc_8111215B36754033FE259ACCA402059E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="Products" Role="FromRole_assoc_8111215B36754033FE259ACCA402059E"/>
-                    <End EntitySet="Products" Role="ToRole_assoc_8111215B36754033FE259ACCA402059E"/>
+                <AssociationSet Name="assoc_540DBD5775CC88B7E279035408653654" Association="cds_zrp_ui_ovp.assoc_540DBD5775CC88B7E279035408653654" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="MarketOrders" Role="FromRole_assoc_540DBD5775CC88B7E279035408653654"/>
+                    <End EntitySet="ProductMarkets" Role="ToRole_assoc_540DBD5775CC88B7E279035408653654"/>
                 </AssociationSet>
-                <AssociationSet Name="assoc_C2C8F5BEF37F6849C2D90BC2C662F21C" Association="cds_zrp_ui_ovp.assoc_C2C8F5BEF37F6849C2D90BC2C662F21C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="ProductMarkets" Role="FromRole_assoc_C2C8F5BEF37F6849C2D90BC2C662F21C"/>
-                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_C2C8F5BEF37F6849C2D90BC2C662F21C"/>
+                <AssociationSet Name="assoc_B6EB2FF08AB1D2B66960B78ED374DD5C" Association="cds_zrp_ui_ovp.assoc_B6EB2FF08AB1D2B66960B78ED374DD5C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProductMarkets" Role="FromRole_assoc_B6EB2FF08AB1D2B66960B78ED374DD5C"/>
+                    <End EntitySet="Markets" Role="ToRole_assoc_B6EB2FF08AB1D2B66960B78ED374DD5C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_8223AD473F372998E695685152B49133" Association="cds_zrp_ui_ovp.assoc_8223AD473F372998E695685152B49133" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="vhProduct" Role="FromRole_assoc_8223AD473F372998E695685152B49133"/>
+                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_8223AD473F372998E695685152B49133"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_08312445751F8550158A23A04EA289E9" Association="cds_zrp_ui_ovp.assoc_08312445751F8550158A23A04EA289E9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="MarketOrders" Role="FromRole_assoc_08312445751F8550158A23A04EA289E9"/>
                     <End EntitySet="Products" Role="ToRole_assoc_08312445751F8550158A23A04EA289E9"/>
                 </AssociationSet>
-                <AssociationSet Name="assoc_67E9167A9F8A1674AD2D8A584EDA75C7" Association="cds_zrp_ui_ovp.assoc_67E9167A9F8A1674AD2D8A584EDA75C7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="MarketOrders" Role="FromRole_assoc_67E9167A9F8A1674AD2D8A584EDA75C7"/>
-                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_67E9167A9F8A1674AD2D8A584EDA75C7"/>
+                <AssociationSet Name="assoc_5B8052F142B7E6599A9F4302FB8A19DD" Association="cds_zrp_ui_ovp.assoc_5B8052F142B7E6599A9F4302FB8A19DD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="vhProduct" Role="FromRole_assoc_5B8052F142B7E6599A9F4302FB8A19DD"/>
+                    <End EntitySet="vhProduct" Role="ToRole_assoc_5B8052F142B7E6599A9F4302FB8A19DD"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_C66A986379F4E7684CC9690A044505F9" Association="cds_zrp_ui_ovp.assoc_C66A986379F4E7684CC9690A044505F9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="Products" Role="FromRole_assoc_C66A986379F4E7684CC9690A044505F9"/>
                     <End EntitySet="ProductGroups" Role="ToRole_assoc_C66A986379F4E7684CC9690A044505F9"/>
                 </AssociationSet>
-                <AssociationSet Name="assoc_20B92FE82F52F0DC499535C64985F792" Association="cds_zrp_ui_ovp.assoc_20B92FE82F52F0DC499535C64985F792" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="MarketOrders" Role="FromRole_assoc_20B92FE82F52F0DC499535C64985F792"/>
-                    <End EntitySet="MarketOrders" Role="ToRole_assoc_20B92FE82F52F0DC499535C64985F792"/>
-                </AssociationSet>
-                <AssociationSet Name="assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E" Association="cds_zrp_ui_ovp.assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="ProductMarkets" Role="FromRole_assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E"/>
-                    <End EntitySet="MarketOrders" Role="ToRole_assoc_C72D4E2829E13CEDDEE8FD2EA498FF7E"/>
-                </AssociationSet>
-                <AssociationSet Name="assoc_163E4B53D5F794E9B9757CA78EED6FE1" Association="cds_zrp_ui_ovp.assoc_163E4B53D5F794E9B9757CA78EED6FE1" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="Products" Role="FromRole_assoc_163E4B53D5F794E9B9757CA78EED6FE1"/>
-                    <End EntitySet="ProductMarkets" Role="ToRole_assoc_163E4B53D5F794E9B9757CA78EED6FE1"/>
+                <AssociationSet Name="assoc_71EC52740CDB42486EA5D05493541BB0" Association="cds_zrp_ui_ovp.assoc_71EC52740CDB42486EA5D05493541BB0" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="vhProduct" Role="FromRole_assoc_71EC52740CDB42486EA5D05493541BB0"/>
+                    <End EntitySet="vhPhase" Role="ToRole_assoc_71EC52740CDB42486EA5D05493541BB0"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_F0B376E80D94C58CF014071D50AA7369" Association="cds_zrp_ui_ovp.assoc_F0B376E80D94C58CF014071D50AA7369" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="Products" Role="FromRole_assoc_F0B376E80D94C58CF014071D50AA7369"/>
                     <End EntitySet="Phases" Role="ToRole_assoc_F0B376E80D94C58CF014071D50AA7369"/>
                 </AssociationSet>
-                <AssociationSet Name="assoc_C74510BD0AAFCE4DAF9CF3C4F4FC6DB1" Association="cds_zrp_ui_ovp.assoc_C74510BD0AAFCE4DAF9CF3C4F4FC6DB1" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="Products" Role="FromRole_assoc_C74510BD0AAFCE4DAF9CF3C4F4FC6DB1"/>
-                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_C74510BD0AAFCE4DAF9CF3C4F4FC6DB1"/>
-                </AssociationSet>
-                <AssociationSet Name="assoc_9A064E3A624DC4624F577000559CD282" Association="cds_zrp_ui_ovp.assoc_9A064E3A624DC4624F577000559CD282" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="ProductMarkets" Role="FromRole_assoc_9A064E3A624DC4624F577000559CD282"/>
-                    <End EntitySet="ProductMarkets" Role="ToRole_assoc_9A064E3A624DC4624F577000559CD282"/>
+                <AssociationSet Name="assoc_38FCC5BF5D23FF033CAA11F9232CC3FF" Association="cds_zrp_ui_ovp.assoc_38FCC5BF5D23FF033CAA11F9232CC3FF" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="vhProduct" Role="FromRole_assoc_38FCC5BF5D23FF033CAA11F9232CC3FF"/>
+                    <End EntitySet="vhProductGroup" Role="ToRole_assoc_38FCC5BF5D23FF033CAA11F9232CC3FF"/>
                 </AssociationSet>
                 <AssociationSet Name="to_HierarchySet" Association="cds_zrp_ui_ovp.to_Hierarchy" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="SAP__MyDocumentDescriptions" Role="FromRole_to_Hierarchy"/>
@@ -683,101 +693,49 @@
                     <End EntitySet="SAP__MyDocumentDescriptions" Role="FromRole_to_coverpage"/>
                     <End EntitySet="SAP__CoverPageSet" Role="ToRole_to_coverpage"/>
                 </AssociationSet>
-                <FunctionImport Name="zzValidateBPID" ReturnType="cds_zrp_ui_ovp.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.MarketOrdersType" sap:applicable-path="zzValidateBPID_ac">
-                    <Parameter Name="ProductUUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
-                    <Parameter Name="ProductMarketUUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
-                    <Parameter Name="OrderUUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
-                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
-                </FunctionImport>
-                <FunctionImport Name="ProductsActivate" ReturnType="cds_zrp_ui_ovp.ProductsType" EntitySet="Products" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.ProductsType">
+                <FunctionImport Name="vhProductActivate" ReturnType="cds_zrp_ui_ovp.vhProductType" EntitySet="vhProduct" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.vhProductType">
                     <Parameter Name="UUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
-                <FunctionImport Name="CopyProduct" ReturnType="cds_zrp_ui_ovp.ProductsType" EntitySet="Products" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.ProductsType" sap:applicable-path="CopyProduct_ac">
+                <FunctionImport Name="CopyProduct" ReturnType="cds_zrp_ui_ovp.vhProductType" EntitySet="vhProduct" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.vhProductType" sap:applicable-path="CopyProduct_ac">
                     <Parameter Name="UUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                     <Parameter Name="ProductID" Type="Edm.String" Mode="In" MaxLength="15" Nullable="true" sap:label="Product ID" sap:quickinfo="Product ID"/>
                 </FunctionImport>
-                <FunctionImport Name="ProductsDiscard" ReturnType="cds_zrp_ui_ovp.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.ProductsType">
+                <FunctionImport Name="vhProductDiscard" ReturnType="cds_zrp_ui_ovp.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.vhProductType">
                     <Parameter Name="UUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
-                <FunctionImport Name="ProductsEdit" ReturnType="cds_zrp_ui_ovp.ProductsType" EntitySet="Products" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.ProductsType" sap:applicable-path="Edit_ac">
+                <FunctionImport Name="vhProductEdit" ReturnType="cds_zrp_ui_ovp.vhProductType" EntitySet="vhProduct" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.vhProductType" sap:applicable-path="Edit_ac">
                     <Parameter Name="UUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                     <Parameter Name="PreserveChanges" Type="Edm.Boolean" Mode="In" Nullable="true" sap:label="TRUE"/>
                 </FunctionImport>
-                <FunctionImport Name="MoveToNextPhase" ReturnType="cds_zrp_ui_ovp.ProductsType" EntitySet="Products" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.ProductsType" sap:applicable-path="MoveToNextPhase_ac">
+                <FunctionImport Name="MoveToNextPhase" ReturnType="cds_zrp_ui_ovp.vhProductType" EntitySet="vhProduct" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.vhProductType" sap:applicable-path="MoveToNextPhase_ac">
                     <Parameter Name="UUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
-                <FunctionImport Name="ProductsPrepare" ReturnType="cds_zrp_ui_ovp.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.ProductsType">
+                <FunctionImport Name="vhProductPrepare" ReturnType="cds_zrp_ui_ovp.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.vhProductType">
                     <Parameter Name="UUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
-                <FunctionImport Name="ProductsResume" ReturnType="cds_zrp_ui_ovp.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.ProductsType">
+                <FunctionImport Name="vhProductResume" ReturnType="cds_zrp_ui_ovp.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.vhProductType">
                     <Parameter Name="UUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
-                <FunctionImport Name="zzGetPGNameTranslation" ReturnType="cds_zrp_ui_ovp.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.ProductsType" sap:applicable-path="zzGetPGNameTranslation_ac">
+                <FunctionImport Name="zzGetPGNameTranslation" ReturnType="cds_zrp_ui_ovp.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.vhProductType" sap:applicable-path="zzGetPGNameTranslation_ac">
                     <Parameter Name="UUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
-                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
-                </FunctionImport>
-                <FunctionImport Name="AcceptMarket" ReturnType="cds_zrp_ui_ovp.ProductMarketsType" EntitySet="ProductMarkets" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.ProductMarketsType" sap:applicable-path="AcceptMarket_ac">
-                    <Parameter Name="ProductUUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
-                    <Parameter Name="ProductMarketUUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
-                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
-                </FunctionImport>
-                <FunctionImport Name="RejectMarket" ReturnType="cds_zrp_ui_ovp.ProductMarketsType" EntitySet="ProductMarkets" m:HttpMethod="POST" sap:action-for="cds_zrp_ui_ovp.ProductMarketsType" sap:applicable-path="RejectMarket_ac">
-                    <Parameter Name="ProductUUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
-                    <Parameter Name="ProductMarketUUID" Type="Edm.Guid" Mode="In" sap:label="UUID"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
             </EntityContainer>
             <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.SideEffects" Qualifier="SAP__Field_DeliveryDate">
-                    <Record Type="Common.SideEffectsType">
-                        <PropertyValue Property="SourceProperties">
-                            <Collection>
-                                <PropertyPath>DeliveryDate</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="TargetProperties">
-                            <Collection>
-                                <String>CalendarYear</String>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Common.SideEffects" Qualifier="SAP__Field_Quantity">
-                    <Record Type="Common.SideEffectsType">
-                        <PropertyValue Property="SourceProperties">
-                            <Collection>
-                                <PropertyPath>Quantity</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="TargetProperties">
-                            <Collection>
-                                <String>AmountCurrency</String>
-                                <String>GrossAmount</String>
-                                <String>NetAmount</String>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Common.ChangedAt" Path="ChangedOn"/>
-                <Annotation Term="Common.ChangedBy" Path="ChangedBy"/>
-                <Annotation Term="Common.CreatedAt" Path="CreatedOn"/>
-                <Annotation Term="Common.CreatedBy" Path="CreatedBy"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/Products" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/vhProduct" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.DraftRoot">
                     <Record>
-                        <PropertyValue Property="ActivationAction" String="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/ProductsActivate"/>
-                        <PropertyValue Property="DiscardAction" String="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/ProductsDiscard"/>
-                        <PropertyValue Property="EditAction" String="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/ProductsEdit"/>
-                        <PropertyValue Property="PreparationAction" String="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/ProductsPrepare"/>
+                        <PropertyValue Property="ActivationAction" String="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/vhProductActivate"/>
+                        <PropertyValue Property="DiscardAction" String="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/vhProductDiscard"/>
+                        <PropertyValue Property="EditAction" String="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/vhProductEdit"/>
+                        <PropertyValue Property="PreparationAction" String="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/vhProductPrepare"/>
                     </Record>
                 </Annotation>
                 <Annotation Term="Capabilities.DeleteRestrictions">
@@ -804,7 +762,6 @@
                                 <PropertyPath>Width_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
-                                <PropertyPath>to_ProductMarket_oc</PropertyPath>
                                 <PropertyPath>zzGetPGNameTranslation_ac</PropertyPath>
                             </Collection>
                         </PropertyValue>
@@ -863,14 +820,6 @@
                                         </Record>
                                     </PropertyValue>
                                 </Record>
-                                <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_ProductMarket"/>
-                                    <PropertyValue Property="InsertRestrictions">
-                                        <Record>
-                                            <PropertyValue Property="Insertable" Path="to_ProductMarket_oc"/>
-                                        </Record>
-                                    </PropertyValue>
-                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -899,7 +848,6 @@
                                 <PropertyPath>Width_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
-                                <PropertyPath>to_ProductMarket_oc</PropertyPath>
                                 <PropertyPath>zzGetPGNameTranslation_ac</PropertyPath>
                             </Collection>
                         </PropertyValue>
@@ -907,221 +855,6 @@
                 </Annotation>
                 <Annotation Term="Capabilities.UpdateRestrictions">
                     <Record>
-                        <PropertyValue Property="NonUpdatableNavigationProperties">
-                            <Collection>
-                                <PropertyPath>to_ProductMarket</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="Updatable" Path="Update_mc"/>
-                    </Record>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/MarketOrders" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.DraftNode"/>
-                <Annotation Term="Common.DraftActivationVia">
-                    <Collection>
-                        <String>cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/Products</String>
-                    </Collection>
-                </Annotation>
-                <Annotation Term="Capabilities.DeleteRestrictions">
-                    <Record>
-                        <PropertyValue Property="Deletable" Path="Delete_mc"/>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.FilterRestrictions">
-                    <Record>
-                        <PropertyValue Property="NonFilterableProperties">
-                            <Collection>
-                                <PropertyPath>Delete_mc</PropertyPath>
-                                <PropertyPath>Update_mc</PropertyPath>
-                                <PropertyPath>zzValidateBPID_ac</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="FilterExpressionRestrictions">
-                            <Collection>
-                                <Record>
-                                    <PropertyValue Property="Property" PropertyPath="DraftEntityCreationDateTime"/>
-                                    <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
-                                </Record>
-                                <Record>
-                                    <PropertyValue Property="Property" PropertyPath="DraftEntityLastChangeDateTime"/>
-                                    <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.NavigationRestrictions">
-                    <Record>
-                        <PropertyValue Property="RestrictedProperties">
-                            <Collection>
-                                <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="DraftAdministrativeData"/>
-                                    <PropertyValue Property="InsertRestrictions">
-                                        <Record>
-                                            <PropertyValue Property="Insertable" Bool="false"/>
-                                        </Record>
-                                    </PropertyValue>
-                                </Record>
-                                <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="SiblingEntity"/>
-                                    <PropertyValue Property="InsertRestrictions">
-                                        <Record>
-                                            <PropertyValue Property="Insertable" Bool="false"/>
-                                        </Record>
-                                    </PropertyValue>
-                                </Record>
-                                <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Product"/>
-                                    <PropertyValue Property="InsertRestrictions">
-                                        <Record>
-                                            <PropertyValue Property="Insertable" Bool="false"/>
-                                        </Record>
-                                    </PropertyValue>
-                                </Record>
-                                <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_ProductMarket"/>
-                                    <PropertyValue Property="InsertRestrictions">
-                                        <Record>
-                                            <PropertyValue Property="Insertable" Bool="false"/>
-                                        </Record>
-                                    </PropertyValue>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="SAP__core.OptimisticConcurrency">
-                    <Collection>
-                        <PropertyPath>LocalChangedOn</PropertyPath>
-                    </Collection>
-                </Annotation>
-                <Annotation Term="Capabilities.SortRestrictions">
-                    <Record>
-                        <PropertyValue Property="NonSortableProperties">
-                            <Collection>
-                                <PropertyPath>Delete_mc</PropertyPath>
-                                <PropertyPath>Update_mc</PropertyPath>
-                                <PropertyPath>zzValidateBPID_ac</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.UpdateRestrictions">
-                    <Record>
-                        <PropertyValue Property="NonUpdatableNavigationProperties">
-                            <Collection>
-                                <PropertyPath>to_Product</PropertyPath>
-                                <PropertyPath>to_ProductMarket</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="Updatable" Path="Update_mc"/>
-                    </Record>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/ProductMarkets" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.DraftNode"/>
-                <Annotation Term="Common.DraftActivationVia">
-                    <Collection>
-                        <String>cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/Products</String>
-                    </Collection>
-                </Annotation>
-                <Annotation Term="Capabilities.DeleteRestrictions">
-                    <Record>
-                        <PropertyValue Property="Deletable" Path="Delete_mc"/>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.FilterRestrictions">
-                    <Record>
-                        <PropertyValue Property="NonFilterableProperties">
-                            <Collection>
-                                <PropertyPath>AcceptMarket_ac</PropertyPath>
-                                <PropertyPath>RejectMarket_ac</PropertyPath>
-                                <PropertyPath>Delete_mc</PropertyPath>
-                                <PropertyPath>Update_mc</PropertyPath>
-                                <PropertyPath>to_MarketOrder_oc</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="FilterExpressionRestrictions">
-                            <Collection>
-                                <Record>
-                                    <PropertyValue Property="Property" PropertyPath="DraftEntityCreationDateTime"/>
-                                    <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
-                                </Record>
-                                <Record>
-                                    <PropertyValue Property="Property" PropertyPath="DraftEntityLastChangeDateTime"/>
-                                    <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.NavigationRestrictions">
-                    <Record>
-                        <PropertyValue Property="RestrictedProperties">
-                            <Collection>
-                                <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="DraftAdministrativeData"/>
-                                    <PropertyValue Property="InsertRestrictions">
-                                        <Record>
-                                            <PropertyValue Property="Insertable" Bool="false"/>
-                                        </Record>
-                                    </PropertyValue>
-                                </Record>
-                                <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="SiblingEntity"/>
-                                    <PropertyValue Property="InsertRestrictions">
-                                        <Record>
-                                            <PropertyValue Property="Insertable" Bool="false"/>
-                                        </Record>
-                                    </PropertyValue>
-                                </Record>
-                                <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_MarketOrder"/>
-                                    <PropertyValue Property="InsertRestrictions">
-                                        <Record>
-                                            <PropertyValue Property="Insertable" Path="to_MarketOrder_oc"/>
-                                        </Record>
-                                    </PropertyValue>
-                                </Record>
-                                <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Product"/>
-                                    <PropertyValue Property="InsertRestrictions">
-                                        <Record>
-                                            <PropertyValue Property="Insertable" Bool="false"/>
-                                        </Record>
-                                    </PropertyValue>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="SAP__core.OptimisticConcurrency">
-                    <Collection>
-                        <PropertyPath>LocalChangedOn</PropertyPath>
-                    </Collection>
-                </Annotation>
-                <Annotation Term="Capabilities.SortRestrictions">
-                    <Record>
-                        <PropertyValue Property="NonSortableProperties">
-                            <Collection>
-                                <PropertyPath>AcceptMarket_ac</PropertyPath>
-                                <PropertyPath>RejectMarket_ac</PropertyPath>
-                                <PropertyPath>Delete_mc</PropertyPath>
-                                <PropertyPath>Update_mc</PropertyPath>
-                                <PropertyPath>to_MarketOrder_oc</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.UpdateRestrictions">
-                    <Record>
-                        <PropertyValue Property="NonUpdatableNavigationProperties">
-                            <Collection>
-                                <PropertyPath>to_MarketOrder</PropertyPath>
-                                <PropertyPath>to_Product</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
                         <PropertyValue Property="Updatable" Path="Update_mc"/>
                     </Record>
                 </Annotation>
@@ -1166,43 +899,23 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/ProductGroupID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/ProductName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ValueList">
                     <Record>
-                        <PropertyValue Property="Label" String="Product Group ID"/>
-                        <PropertyValue Property="CollectionPath" String="ProductGroups"/>
-                        <PropertyValue Property="SearchSupported" Bool="true"/>
-                        <PropertyValue Property="Parameters">
-                            <Collection>
-                                <Record Type="Common.ValueListParameterInOut">
-                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ProductGroupID"/>
-                                    <PropertyValue Property="ValueListProperty" String="ProductGroupID"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ProductGroupName"/>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/ProductID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.ValueList">
-                    <Record>
-                        <PropertyValue Property="Label" String="Product ID"/>
-                        <PropertyValue Property="CollectionPath" String="Products"/>
+                        <PropertyValue Property="Label" String="Product Name"/>
+                        <PropertyValue Property="CollectionPath" String="vhProduct"/>
                         <PropertyValue Property="SearchSupported" Bool="false"/>
                         <PropertyValue Property="Parameters">
                             <Collection>
                                 <Record Type="Common.ValueListParameterInOut">
-                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ProductID"/>
-                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ProductName"/>
+                                    <PropertyValue Property="ValueListProperty" String="Name"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="UUID"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Name"/>
+                                    <PropertyValue Property="ValueListProperty" String="ID"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="ProductGroupID"/>
@@ -1263,70 +976,46 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/MarketID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/MarketName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ValueList">
                     <Record>
-                        <PropertyValue Property="Label" String="Market ID"/>
-                        <PropertyValue Property="CollectionPath" String="ProductMarkets"/>
-                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Label" String="Market Name"/>
+                        <PropertyValue Property="CollectionPath" String="vhMarket"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
                         <PropertyValue Property="Parameters">
                             <Collection>
                                 <Record Type="Common.ValueListParameterInOut">
-                                    <PropertyValue Property="LocalDataProperty" PropertyPath="MarketID"/>
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="MarketName"/>
+                                    <PropertyValue Property="ValueListProperty" String="MarketName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="MarketID"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ProductUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="Language"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ProductMarketUUID"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ISOCode"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Status"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="StartDate"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="EndDate"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="CreatedBy"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="CreatedOn"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ChangedBy"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ChangedOn"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="LocalChangedOn"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/PhaseID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/PhaseName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ValueList">
                     <Record>
-                        <PropertyValue Property="Label" String="Phase ID"/>
-                        <PropertyValue Property="CollectionPath" String="Phases"/>
+                        <PropertyValue Property="Label" String="Short Descript."/>
+                        <PropertyValue Property="CollectionPath" String="vhPhase"/>
                         <PropertyValue Property="SearchSupported" Bool="false"/>
                         <PropertyValue Property="Parameters">
                             <Collection>
                                 <Record Type="Common.ValueListParameterInOut">
-                                    <PropertyValue Property="LocalDataProperty" PropertyPath="PhaseID"/>
-                                    <PropertyValue Property="ValueListProperty" String="PhaseID"/>
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="PhaseName"/>
+                                    <PropertyValue Property="ValueListProperty" String="PhaseText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="PhaseText"/>
+                                    <PropertyValue Property="ValueListProperty" String="PhaseID"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -1336,23 +1025,11 @@
             <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ChangedAt" Path="ChangedOn"/>
                 <Annotation Term="Common.ChangedBy" Path="ChangedBy"/>
                 <Annotation Term="Common.CreatedAt" Path="CreatedOn"/>
                 <Annotation Term="Common.CreatedBy" Path="CreatedBy"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.ChangedAt" Path="ChangedOn"/>
-                <Annotation Term="Common.ChangedBy" Path="ChangedBy"/>
-                <Annotation Term="Common.CreatedAt" Path="CreatedOn"/>
-                <Annotation Term="Common.CreatedBy" Path="CreatedBy"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/to_MarketOrder" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.Composition"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/to_ProductMarket" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.Composition"/>
             </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/Cards" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Capabilities.DeleteRestrictions">
@@ -1365,9 +1042,10 @@
                         <PropertyValue Property="NonFilterableProperties">
                             <Collection>
                                 <PropertyPath>ID</PropertyPath>
-                                <PropertyPath>Quantity</PropertyPath>
-                                <PropertyPath>NetAmount</PropertyPath>
-                                <PropertyPath>GrossAmount</PropertyPath>
+                                <PropertyPath>CountByCountry</PropertyPath>
+                                <PropertyPath>CountByProductGroup</PropertyPath>
+                                <PropertyPath>GrossIncomPercentage</PropertyPath>
+                                <PropertyPath>GrIncPercKPI</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -1471,6 +1149,64 @@
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/MarketOrders" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Product"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_ProductMarket"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/Markets" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/Phases" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Capabilities.DeleteRestrictions">
                     <Record>
@@ -1505,49 +1241,135 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/AmountCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/ProductMarkets" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Market"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/Products" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Phase"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_ProductGroup"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/vhMarket" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/vhPhase" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities/vhProductGroup" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/LocalChangedOn" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/CalendarYear" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/DeliveryDate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/GrossAmount" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/LocalChangedOn" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/NetAmount" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/OrderID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/Quantity" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/EndDate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/LocalChangedOn" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/MarketID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/StartDate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/Status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/LocalChangedOn" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/PhaseID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/PhaseID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
             </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.cds_zrp_ui_ovp_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
@@ -1597,20 +1419,50 @@
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/PhaseName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VAL_TEXT&amp;origin=TRL_100"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/PhaseName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VAL_TEXT&amp;origin=TRL_100"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.CardsType/AmountCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WAERS_CURC&amp;origin=TRL_100"/>
+            </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.I_DraftAdministrativeUserVHType/UserID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=XUBNAME&amp;origin=TRL_100"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/PhaseID_Text" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/PhaseID_Text" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VAL_TEXT&amp;origin=TRL_100"/>
             </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.ProductsType/PriceCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WAERS_CURC&amp;origin=TRL_100"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.CardsType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/AmountCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WAERS_CURC&amp;origin=TRL_100"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.CardsType/PhaseName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VAL_TEXT&amp;origin=TRL_100"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/PriceCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WAERS_CURC&amp;origin=TRL_100"/>
             </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.ProductsType/SizeUOM" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=MSEHI&amp;origin=TRL_100"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/SizeUOM" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=MSEHI&amp;origin=TRL_100"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.MarketsType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WAERS_CURC&amp;origin=TRL_100"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.ProductsType/PhaseName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VAL_TEXT&amp;origin=TRL_100"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhMarketType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WAERS_CURC&amp;origin=TRL_100"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhPhaseType/PhaseText" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VAL_TEXT&amp;origin=TRL_100"/>
             </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/AmountCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WAERS_CURC&amp;origin=TRL_100"/>

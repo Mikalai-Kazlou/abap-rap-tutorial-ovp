@@ -77,85 +77,468 @@
             <Annotations Target="cds_zrp_ui_ovp.CardsType/OrderUUID">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.CardsType/Currency">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.CardsType/ID">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.CardsType">
-                <Annotation Term="UI.Chart" Qualifier="MarketGrossAmountChart">
+                <Annotation Term="UI.Chart" Qualifier="AVGIncomeCountry">
                     <Record Type="UI.ChartDefinitionType">
-                        <PropertyValue Property="Title" String="Market Gross Amount Chart"/>
-                        <PropertyValue Property="Description" String="The chart shows order gross amounts for each market"/>
+                        <PropertyValue Property="Title" String="by Countries"/>
                         <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
                         <PropertyValue Property="Dimensions">
                             <Collection>
-                                <PropertyPath>MarketID</PropertyPath>
+                                <PropertyPath>MarketName</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="DimensionAttributes">
                             <Collection>
                                 <Record Type="UI.ChartDimensionAttributeType">
-                                    <PropertyValue Property="Dimension" PropertyPath="MarketID"/>
-                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                    <PropertyValue Property="Dimension" PropertyPath="MarketName"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="Measures">
                             <Collection>
-                                <PropertyPath>GrossAmount</PropertyPath>
+                                <PropertyPath>GrossIncomPercentage</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="MeasureAttributes">
                             <Collection>
                                 <Record Type="UI.ChartMeasureAttributeType">
-                                    <PropertyValue Property="Measure" PropertyPath="GrossAmount"/>
+                                    <PropertyValue Property="Measure" PropertyPath="GrossIncomPercentage"/>
                                     <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="OrdQuanByProdGr">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title" String="By Product Groups"/>
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column"/>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>ProductName</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="ProductName"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>CountByProductGroup</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="CountByProductGroup"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="OrdQuanByCountry">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title" String="By Countrys"/>
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column"/>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>MarketName</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="MarketName"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>CountByCountry</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="CountByCountry"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="dpOrdQuanByCountry">
+                    <Record>
+                        <PropertyValue Property="Value" Path="CountByCountry"/>
+                        <PropertyValue Property="Title" String="Quantity by Countrys"/>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record>
+                                <PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Maximize"/>
+                                <PropertyValue Property="DeviationRangeLowValue" Decimal="10"/>
+                                <PropertyValue Property="ToleranceRangeLowValue" Decimal="15"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="dpOrdQuanByProdGr">
+                    <Record>
+                        <PropertyValue Property="Value" Path="CountByProductGroup"/>
+                        <PropertyValue Property="Title" String="Quantity by Product Groups"/>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record>
+                                <PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Maximize"/>
+                                <PropertyValue Property="DeviationRangeLowValue" Decimal="10"/>
+                                <PropertyValue Property="ToleranceRangeLowValue" Decimal="15"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="dpAVGIncomeCountryList">
+                    <Record>
+                        <PropertyValue Property="Value" Path="GrIncPercKPI"/>
+                        <PropertyValue Property="Title" String=""/>
+                        <PropertyValue Property="ValueFormat">
+                            <Record>
+                                <PropertyValue Property="NumberOfFractionalDigits" Int="1"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record>
+                                <PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Maximize"/>
+                                <PropertyValue Property="DeviationRangeLowValue" Decimal="40"/>
+                                <PropertyValue Property="ToleranceRangeLowValue" Decimal="50"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="TrendCalculation">
+                            <Record>
+                                <PropertyValue Property="ReferenceValue" Path="TargetGrIncPercKPI"/>
+                                <PropertyValue Property="UpDifference" Decimal="0"/>
+                                <PropertyValue Property="DownDifference" Decimal="0"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="GrossIncom">
+                    <Record>
+                        <PropertyValue Property="Value" Path="GrossIncom"/>
+                        <PropertyValue Property="Title" String="Gross Incom"/>
+                        <PropertyValue Property="ValueFormat">
+                            <Record>
+                                <PropertyValue Property="ScaleFactor" Decimal="1000000"/>
+                                <PropertyValue Property="NumberOfFractionalDigits" Int="2"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="dpAVGIncomeCountry">
+                    <Record>
+                        <PropertyValue Property="Value" Path="GrossIncomPercentage"/>
+                        <PropertyValue Property="Title" String="Average Gross Income Percentage"/>
+                        <PropertyValue Property="ValueFormat">
+                            <Record>
+                                <PropertyValue Property="NumberOfFractionalDigits" Int="1"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record>
+                                <PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Maximize"/>
+                                <PropertyValue Property="DeviationRangeLowValue" Decimal="25"/>
+                                <PropertyValue Property="ToleranceRangeLowValue" Decimal="30"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="TrendCalculation">
+                            <Record>
+                                <PropertyValue Property="ReferenceValue" Path="TargetGrossIncomPercentage"/>
+                                <PropertyValue Property="UpDifference" Decimal="0"/>
+                                <PropertyValue Property="DownDifference" Decimal="0"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="GrossIncomPercentageList">
+                    <Record>
+                        <PropertyValue Property="Value" Path="GrossIncomPercentageList"/>
+                        <PropertyValue Property="Title" String=""/>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record>
+                                <PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Maximize"/>
+                                <PropertyValue Property="DeviationRangeLowValue" Decimal="40"/>
+                                <PropertyValue Property="ToleranceRangeLowValue" Decimal="50"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="OrderID">
+                    <Record>
+                        <PropertyValue Property="Value" Path="OrderID"/>
+                        <PropertyValue Property="Title" String="Order ID"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets" Qualifier="StackOrdersList">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="StackOrdersListFD"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#StackOrdersListFD"/>
+                            <Annotation Term="UI.IsSummary" Bool="true"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="StackOrdersListGenInf"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#StackOrdersListGenInf"/>
+                            <Annotation Term="UI.IsSummary" Bool="true"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="StackOrdersListFD">
+                    <Record>
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Quantity, pieces"/>
+                                    <PropertyValue Property="Value" Path="Quantity"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Net Amount"/>
+                                    <PropertyValue Property="Value" Path="NetAmount"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Gross Amount"/>
+                                    <PropertyValue Property="Value" Path="GrossAmount"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Gross Income"/>
+                                    <PropertyValue Property="Value" Path="GrossIncom"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Gross Income Percentage"/>
+                                    <PropertyValue Property="Value" Path="GrossIncomPercentage"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="StackOrdersListGenInf">
+                    <Record>
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Product Name"/>
+                                    <PropertyValue Property="Value" Path="ProductName"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Market"/>
+                                    <PropertyValue Property="Value" Path="MarketName"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Year of Issue"/>
+                                    <PropertyValue Property="Value" Path="CalendarYear"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Delivery"/>
+                                    <PropertyValue Property="Value" Path="DeliveryDate"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String="Order"/>
+                        <PropertyValue Property="TypeNamePlural" String="Orders"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Label" String="Order ID"/>
+                                <PropertyValue Property="Value" Path="OrderID"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="PhaseName"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="ImageUrl" Path="IconUrl"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Identification" Qualifier="FaceSide">
+                    <Collection>
+                        <Record Type="UI.DataFieldForIntentBasedNavigation">
+                            <PropertyValue Property="Label" String="Product ID"/>
+                            <PropertyValue Property="SemanticObject" String="">
+                                <Annotation Term="Core.Messages">
+                                    <Collection>
+                                        <Record>
+                                            <PropertyValue Property="message" String="ERROR: Mandatory Value for Semantic Object not found"/>
+                                            <PropertyValue Property="severity" String="error"/>
+                                        </Record>
+                                    </Collection>
+                                </Annotation>
+                            </PropertyValue>
+                            <PropertyValue Property="Action" String="manage"/>
+                            <PropertyValue Property="RequiresContext" Bool="false"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Identification" Qualifier="FlipSide">
+                    <Collection>
+                        <Record Type="UI.DataFieldForIntentBasedNavigation">
+                            <PropertyValue Property="SemanticObject" String="">
+                                <Annotation Term="Core.Messages">
+                                    <Collection>
+                                        <Record>
+                                            <PropertyValue Property="message" String="ERROR: Mandatory Value for Semantic Object not found"/>
+                                            <PropertyValue Property="severity" String="error"/>
+                                        </Record>
+                                    </Collection>
+                                </Annotation>
+                            </PropertyValue>
+                            <PropertyValue Property="Action" String="manage"/>
+                            <PropertyValue Property="RequiresContext" Bool="false"/>
+                        </Record>
+                        <Record Type="UI.DataFieldWithUrl">
+                            <PropertyValue Property="Label" String="EPAM Global"/>
+                            <PropertyValue Property="Value" Path="WebAddress"/>
+                            <PropertyValue Property="Url" Path="WebAddress"/>
+                        </Record>
+                        <Record Type="UI.DataFieldWithUrl">
+                            <PropertyValue Property="Label" String="EPAM BY"/>
+                            <PropertyValue Property="Value" Path="WebAddress2"/>
+                            <PropertyValue Property="Url" Path="WebAddress2"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="OrdersList">
+                    <Collection>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#GrossIncomPercentageList"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#GrossIncom"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ProductName"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MarketName"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#OrderID"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.PresentationVariant" Qualifier="pvOrdersList">
+                    <Record>
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="GrossIncomPercentage"/>
+                                    <PropertyValue Property="Descending" Bool="true"/>
+                                </Record>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="OrderID"/>
+                                    <PropertyValue Property="Descending" Bool="false"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@UI.LineItem#OrdersList</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.PresentationVariant" Qualifier="pvAVGIncomeCountry">
+                    <Record>
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="MarketName"/>
+                                    <PropertyValue Property="Descending" Bool="false"/>
+                                </Record>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="GrossIncomPercentage"/>
+                                    <PropertyValue Property="Descending" Bool="true"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@UI.Chart#AVGIncomeCountry</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.PresentationVariant" Qualifier="pvOrdQuanByProdGr">
+                    <Record>
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="ProductName"/>
+                                    <PropertyValue Property="Descending" Bool="false"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@UI.Chart#OrdQuanByProdGr</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.PresentationVariant" Qualifier="pvOrdQuanByCountry">
+                    <Record>
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="MarketName"/>
+                                    <PropertyValue Property="Descending" Bool="false"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@UI.Chart#OrdQuanByCountry</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/ProductUUID">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/ProductMarketUUID">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType/OrderUUID">
+                <Annotation Term="UI.Hidden"/>
             </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.GlobalFiltersType">
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
-                        <PropertyPath>ProductGroupID</PropertyPath>
-                        <PropertyPath>ProductID</PropertyPath>
-                        <PropertyPath>MarketID</PropertyPath>
+                        <PropertyPath>ProductName</PropertyPath>
+                        <PropertyPath>MarketName</PropertyPath>
                         <PropertyPath>DeliveryDate</PropertyPath>
-                        <PropertyPath>PhaseID</PropertyPath>
+                        <PropertyPath>GrossIncom</PropertyPath>
+                        <PropertyPath>PhaseName</PropertyPath>
                     </Collection>
                 </Annotation>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/HasDraftEntity">
-                <Annotation Term="UI.HiddenFilter"/>
+            <Annotations Target="cds_zrp_ui_ovp.vhMarketType/ImageUrl">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/DraftEntityCreationDateTime">
-                <Annotation Term="UI.HiddenFilter"/>
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/DraftEntityLastChangeDateTime">
-                <Annotation Term="UI.HiddenFilter"/>
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/HasActiveEntity">
-                <Annotation Term="UI.HiddenFilter"/>
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/IsActiveEntity">
-                <Annotation Term="UI.HiddenFilter"/>
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/Delete_mc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/Update_mc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.MarketOrdersType/zzValidateBPID_ac">
+            <Annotations Target="cds_zrp_ui_ovp.MarketsType/ImageUrl">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.PhasesType/Phase">
@@ -180,113 +563,100 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/HasDraftEntity">
-                <Annotation Term="UI.HiddenFilter"/>
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/DraftEntityCreationDateTime">
-                <Annotation Term="UI.HiddenFilter"/>
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/DraftEntityLastChangeDateTime">
-                <Annotation Term="UI.HiddenFilter"/>
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/HasActiveEntity">
-                <Annotation Term="UI.HiddenFilter"/>
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/IsActiveEntity">
-                <Annotation Term="UI.HiddenFilter"/>
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/CopyProduct_ac">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/Edit_ac">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/MoveToNextPhase_ac">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/Depth_fc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/Height_fc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/ID_fc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/Name_fc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/Price_fc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/PriceCurrency_fc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/ProductGroupID_fc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/SizeUOM_fc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/TaxRate_fc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/Width_fc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/Delete_mc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/Update_mc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/to_ProductMarket_oc">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductsType/zzGetPGNameTranslation_ac">
-                <Annotation Term="UI.Hidden"/>
-            </Annotations>
             <Annotations Target="cds_zrp_ui_ovp.ProductGroupsType/ImageUrl">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/HasDraftEntity">
+            <Annotations Target="cds_zrp_ui_ovp.vhPhaseType/Phase">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhPhaseType/PhaseID">
+                <Annotation Term="Common.Text" Path="PhaseText">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhPhaseType">
+                <Annotation Term="UI.PresentationVariant">
+                    <Record>
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="PhaseID"/>
+                                    <PropertyValue Property="Descending" Bool="false"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/HasDraftEntity">
                 <Annotation Term="UI.HiddenFilter"/>
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/DraftEntityCreationDateTime">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/DraftEntityCreationDateTime">
                 <Annotation Term="UI.HiddenFilter"/>
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/DraftEntityLastChangeDateTime">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/DraftEntityLastChangeDateTime">
                 <Annotation Term="UI.HiddenFilter"/>
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/HasActiveEntity">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/HasActiveEntity">
                 <Annotation Term="UI.HiddenFilter"/>
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/IsActiveEntity">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/IsActiveEntity">
                 <Annotation Term="UI.HiddenFilter"/>
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/AcceptMarket_ac">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/CopyProduct_ac">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/RejectMarket_ac">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/Edit_ac">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/Delete_mc">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/MoveToNextPhase_ac">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/Update_mc">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/Depth_fc">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
-            <Annotations Target="cds_zrp_ui_ovp.ProductMarketsType/to_MarketOrder_oc">
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/Height_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/ID_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/Name_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/Price_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/PriceCurrency_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/ProductGroupID_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/SizeUOM_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/TaxRate_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/Width_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/Delete_mc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/Update_mc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductType/zzGetPGNameTranslation_ac">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="cds_zrp_ui_ovp.vhProductGroupType/ImageUrl">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
             <Annotations Target="_Entities"/>
