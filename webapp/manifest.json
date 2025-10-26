@@ -109,6 +109,7 @@
           "defaultBindingMode": "TwoWay",
           "defaultCountMode": "Inline",
           "refreshAfterChange": false,
+          "useBatch": false,
           "metadataUrlParams": {
             "sap-value-list": "none"
           }
@@ -134,7 +135,99 @@
     "containerLayout": "resizable",
     "enableLiveFilter": true,
     "considerAnalyticalParameters": false,
-    "cards": {}
+    "cards": {
+      "OrdersQuantity": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.charts.analytical",
+        "settings": {
+          "title": "Orders Quantity",
+          "entitySet": "Cards",
+          "tabs": [
+            {
+              "value": "By Countries",
+              "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification",
+              "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#dpOrdQuanByCountry",
+              "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvOrdQuanByCountry",
+              "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#OrdQuanByCountry"
+            },
+            {
+              "value": "By Product Groups",
+              "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification",
+              "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#dpOrdQuanByProdGr",
+              "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvOrdQuanByProdGr",
+              "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#OrdQuanByProdGr"
+            }
+          ]
+        }
+      },
+      "AVGIncomeCountry": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.charts.analytical",
+        "settings": {
+          "title": "Average Gross Income",
+          "subtTitle": "",
+          "entitySet": "Cards",
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification",
+          "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#dpAVGIncomeCountry",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvAVGIncomeCountry",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#AVGIncomeCountry"
+        }
+      },
+      "OrdersList": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.list",
+        "settings": {
+          "title": "Profitable of Orders",
+          "subTitle": "",
+          "entitySet": "Cards",
+          "listType": "extended",
+          "listFlavor": "bar",
+          "addODataSelect": false,
+          "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#dpAVGIncomeCountryList",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvOrdersList",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#OrdersList",
+          "defaultSpan": {
+            "rows": 7,
+            "cols": 1
+          }
+        }
+      },
+      "OrdersList2": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.list",
+        "settings": {
+          "title": "Profitable of Orders",
+          "entitySet": "Cards",
+          "listType": "condensed",
+          "listFlavor": "bar",
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification",
+          "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#dpAVGIncomeCountry",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#pvOrdersList",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#OrdersList",
+          "defaultSpan": {
+            "rows": 10,
+            "cols": 1
+          }
+        }
+      },
+      "StackOrdersList": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.stack",
+        "settings": {
+          "title": "Orders",
+          "subTitle": "General Information",
+          "sortBy": "OrderID",
+          "sortOrder": "ascending",
+          "entitySet": "Cards",
+          "addODataSelect": "false",
+          "objectStreamCardsSettings": {
+            "annotationPath": "com.sap.vocabularies.UI.v1.Facets#StackOrdersList"
+          },
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#FaceSide,com.sap.vocabularies.UI.v1.Identification#FlipSide"
+        }
+      }
+    },
+    "chartSettings": {}
   },
   "sap.fiori": {
     "registrationIds": [],
